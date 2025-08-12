@@ -17,7 +17,7 @@
     <li>Build Docker image: <code>docker-compose build</code></li>
     <li>Run container: <code>docker-compose up -d</code></li>
     <li>Apply migrations inside container: <code>docker-compose exec backend python manage.py migrate</code></li>
-    <li>And them for carete super user: <code>docker-compose exec container_name python manage.py createsuperuser</code></li>
+    <li>And them for carete super user: <code>docker-compose exec backend python manage.py createsuperuser</code></li>
    
   </ol>
 
