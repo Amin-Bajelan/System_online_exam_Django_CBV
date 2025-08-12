@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Avaialble Exam</title>
+</head>
+<body>
+    <h4>Current time:  {{ current_time }}</h4>
+    <a href="{% url 'index' %}"><button>Back</button></a>
+    <hr>
+    {% for i in exams %}
+        {% if i.is_over == False %}
+            {% if i.end_time < current_time %}
+                <h3>Title exam: {{ i.title }}</h3>
+                <ul>
+                    <li>strat time: {{ i.start_time }}</li>
+                    <li>end time: {{ i.end_time }}</li>
+                </ul>
+                <h4>description of exam: {{ i.description }}</h4>
+                <h4>The time for this exam is over</h4>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+                <hr>
+            {% else %}
+                    <h3>Title exam: {{ i.title }}</h3>
+                <ul>
+                    <li>strat time: {{ i.start_time }}</li>
+                    <li>end time: {{ i.end_time }}</li>
+                </ul>
+                <h4>description of exam: {{ i.description }}</h4>
+                <h4>You can start this exam at time:</h4>
+                <a href="{% url 'answer_exam' i.id %}"><button>Join exam</button></a>
+                </form>
+                <hr>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+</body>
+</html>

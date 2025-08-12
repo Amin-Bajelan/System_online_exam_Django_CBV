@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit question</title>
+</head>
+<body>
+<h3>Multiple choice question:</h3>
+<ul>
+    <a href="{% url 'index' %}"><button>Back</button></a>
+    {% for q in question_m %
+        {% if q.image %}
+            <img sizes="200px" src="{% url q.image.url %}" alt="">
+        {% endif %}
+        <li>the question: {{ q.question_diss }}</li>
+        <h3>answers: </h3>
+        <ol>
+            <li>{{ q.option1 }}</li>
+            <li>{{ q.option2 }}</li>
+            <li>{{ q.option3 }}</li>
+            <li>{{ q.option4 }}</li>
+        </ol>
+        <li>correct answer: {{ q.correct_option }}</li>
+        <h4>score: {{ q.score }}</h4>
+        <form method="post" action="{% url 'edit_multiple_exam_question' q.id %}">
+            {% csrf_token %}
+            <button type="submit">Edit</button>
+        </form>
+        <hr>
+    {% endfor %}
+    </ul>
+
+    <h3>Descriptive question:</h3>
+    <ul>
+    {% for q in question_d %}
+        {% if q.image %}
+            <img sizes="200px" src="{% url q.image.url %}" alt="">
+        {% endif %}
+        <li>the question: {{ q.question_diss }}</li>
+        <li>answer you set up: {{ q.question_answer }}</li>
+        <h4>score: {{ q.score }}</h4>
+        <form method="post" action="{% url 'edit_description_question' q.id %}">
+            {% csrf_token %}
+            <button type="submit">Edit</button>
+        </form>
+        <hr>
+    {% endfor %}
+</ul>
+</body>
+</html>

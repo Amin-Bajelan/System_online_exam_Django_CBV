@@ -19,7 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserAdmin(UserAdmin):
     model = User
     add_form = CustomUserCreationForm
-    list_display = ['email', 'is_staff', 'is_active', 'is_superuser']
+    list_display = ['email', 'is_staff', 'is_active', 'is_superuser','is_teacher']
     list_filter = ['is_staff', 'is_active', 'is_superuser']
     search_fields = ['email']
     ordering = ('email',)
@@ -31,7 +31,7 @@ class CustomUserAdmin(UserAdmin):
         }),
         ('Permissions', {
             'fields': [
-                'is_staff', 'is_active', 'is_superuser',
+                'is_staff', 'is_active', 'is_superuser','is_teacher'
             ],
         }),
         ('group permissions', {

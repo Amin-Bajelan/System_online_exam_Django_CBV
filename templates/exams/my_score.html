@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My score</title>
+</head>
+<body>
+    <a href="{% url 'index' %}"><button>Back</button></a>
+    {% for i in student_answer %}
+        <h3>Score: {{ i.score }}</h3>
+        <h4>Exam: {{ i.exam }}</h4>
+        <h4>professor: {{ i.professor }}</h4>
+        <hr>
+    {% endfor %}
+
+</body>
+</html>

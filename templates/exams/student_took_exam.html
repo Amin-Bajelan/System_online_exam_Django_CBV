@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List student</title>
+</head>
+<body>
+
+<a href="{% url 'index' %}"><button>get back</button></a>
+
+{% if student_answer %}
+    {% for i in student_answer %}
+        <ol>
+            <a href="{% url 'student_answer' exam.id i.id %}"><li>see exam result student: {{ i.first_name }}</li></a>
+        </ol>
+    {% endfor %}
+{% else %}
+    <h3>no one done your exam yet...</h3>
+{% endif %}
+
+</body>
+</html>

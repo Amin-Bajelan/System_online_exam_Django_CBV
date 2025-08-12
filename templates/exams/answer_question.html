@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer exam</title>
+</head>
+<body>
+{% for q in questions %}
+    <div class="question-block">
+        <h3>Question type: {{ q.get_question_type_display }}</h3>
+
+        {% if q.question_type == 'multiple_choice' %}
+            {% for mc in q.mc_details.all %}
+                <p>{{ mc.question_diss }}</p>
+                {% if mc.image %}
+                    <img src="{{ mc.image.url }}" alt="exam image" />
+                {% endif %}
+                <ol>
+                    <li>{{ mc.option1 }}</li>
+                    <li>{{ mc.option2 }}</li>
+                    <li>{{ mc.option3 }}</li>
+                    <li>{{ mc.option4 }}</li>
+                </ol>
+            {% endfor %}
+
+            <form method="post">
+                {% csrf_token %}
+                {{ answer_mu.as_p }}
+                <input type="hidden" name="question_id" value="{{ q.id }}">
+                <button type="submit">send answer</button>
+            </form>
+
+        {% elif q.question_type == 'descriptive' %}
+            {% for desc in q.desc_details.all %}
+                <p>{{ desc.question_diss }}</p>
+                {% if desc.image %}
+                    <img src="{{ desc.image.url }}" alt="exam image" />
+                {% endif %}
+            {% endfor %}
+
+            <form method="post">
+                {% csrf_token %}
+                {{ answer_des.as_p }}
+                <input type="hidden" name="question_id" value="{{ q.id }}">
+                <button type="submit">send answer</button>
+            </form>
+        {% endif %}
+    </div>
+{% endfor %}
+    <a href="{% url 'index' %}"><button type="submit">finish exam</button></a>
+</body>
+</html>

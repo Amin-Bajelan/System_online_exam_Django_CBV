@@ -5,6 +5,7 @@ Pillow
 Faker~=37.4.0
 #requirements for restframework
 djangorestframework
+djangorestframework-simplejwt
 markdown
 django-filter
 django-filter

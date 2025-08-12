@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add question</title>
+</head>
+<body>
+<a href="{% url 'index' %}"><button>Back to main page</button></a>
+<form method="post" action="{% url 'assign_student' exam.id %}">
+    {% csrf_token %}
+    <button>Finsh and add students</button>
+</form>
+<br>
+    <h3>Add multichoice question...</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ mcq_form.as_p }}
+      <button type="submit" name="add_mcq">Add this question...</button>
+    </form>
+    <hr>
+    <h3>Add description question...</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ desc_form.as_p }}
+      <button type="submit" name="add_desc">Add this question...</button>
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show exams</title>
+</head>
+<body>
+    <a href="{% url 'index' %}"><button>Back</button></a>
+
+    {% for i in exams %}
+        <h3>title of exam: {{ i.title }}</h3>
+        <h4>start time: <time>{{ i.start_time }}</time></h4>
+        <h4>end time: <time>{{ i.end_time }}</time></h4>
+        {% if i.description %}
+            <h3>description: {{ i.description }}</h3>
+        {% else %}
+            <h3>description: no description setup.</h3>
+                <form method="post" action="{% url 'edit_exam_question' i.id %}">
+                    {% csrf_token %}
+                    <button>Edit</button>
+                </form>
+
+                <form method="get" action="{% url 'took_exam' i.id %}">
+                    {% csrf_token %}
+                    <button type="submit">student took exam</button>
+                </form>
+        {% endif %}
+        <h3>students:</h3>
+        {% for j in i.list_students.all %}
+            <p>{{ j.username }}</p>
+        {% endfor %}
+
+        <hr>
+    {% endfor %}
+
+
+</body>
+</html>

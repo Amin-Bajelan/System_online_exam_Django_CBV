@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Answers</title>
+</head>
+<body>
+
+<a href="{% url 'index' %}"><button>get back</button></a>
+<hr>
+    {% for i in student_answer %}
+    {% if i.question.question_type == 'multiple_choice' %}
+        {% with mc=i.question.mc_details.first %}
+            <div class="question-block">
+                <p><strong>question: </strong> {{ mc.question_diss }}</p>
+                <p><strong>correct answer: </strong>{{ mc.correct_option }}</p>
+                <p><strong>student answer: </strong> {{ i.mc_answer }}</p>
+                <h4>{{ mc.score }}</h4>
+            </div>
+            <hr>
+        {% endwith %}
+
+    {% elif i.question.question_type == 'descriptive' %}
+        {% with des=i.question.desc_details.first %}
+            <div class="question-block">
+                <p><strong>question: </strong> {{ des.question_diss }}</p>
+                <p><strong>correct answer: </strong>{{ mc.question_answer }}</p>
+                <p><strong>student answer: </strong> {{ i.desc_answer }}</p>
+                <h4>{{ des.score }}</h4>
+            </div>
+            <hr>
+        {% endwith %}
+    {% endif %}
+{% endfor %}
+
+        <form method="post" action="{% url 'set_score' exam.id profile.id %}">
+            {% csrf_token %}
+          <label for="score">student score: </label>
+          <input type="number" name="score" id="score" required>
+          <button type="submit">send</button>
+        </form>
+
+</body>
+</html>
